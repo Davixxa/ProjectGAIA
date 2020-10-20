@@ -1,5 +1,4 @@
-# Compiled class file
-*.class
+# Compiled class file -- This would normally be here, but considering we're provided pre-compiled .class files for this project, this is not ideal.
 
 # Log file
 *.log
