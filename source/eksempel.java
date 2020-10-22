@@ -20,19 +20,17 @@ public class eksempel{
 		Visualizer visualizer = new Visualizer(graph,true,(Node) homes[0],ants);
 		visualizer.display();
 		
-		
 		//do while loop så simuleringen kan køres i steps
 		int metode = 10;
 		boolean cont;
 		
-		do {
-		simCity.tick();
-		visualizer.update();
+		do {	
+			System.out.println("will you continue? true/false");
+			cont = sc.nextBoolean();
+			metode = metode - 1;
 			
-			
-		System.out.println("will you continue? true/false");
-		cont = sc.nextBoolean();
-		metode = metode - 1;
+			simCity.tick();
+			visualizer.update();
 		} while(metode > 0 && cont);
 
 		
