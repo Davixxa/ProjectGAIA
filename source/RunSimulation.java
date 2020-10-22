@@ -60,4 +60,18 @@ public class RunSimulation {
 	}
 	
 	
+	private static int getNormalNumber(){
+		int number = 0;
+		do {
+			Scanner sc = new Scanner(System.in);
+			number = sc.nextInt();
+		
+		if(number > 4000 || number < 1){
+			System.out.println("Skriv venligst et input mellem 1 og 4000");
+		}
+		} while(number > 4000 || number < 1);
+		
+		return number;
+	}
+	
 }
