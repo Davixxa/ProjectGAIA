@@ -1,12 +1,14 @@
 import java.util.Scanner;
 
 public class RunSimulation {
-
+	
+	private static Scanner scanner = new Scanner(System.in);
+	
 	public static void main(String[] args){
 		welcomeMessage();
 		
 		//Node creation
-		
+		node = nodeCreation();
 		//Colony creation
 		
 		//Edge creation
@@ -34,6 +36,11 @@ public class RunSimulation {
 		
 	}
 	
-	
+	/*
+	* This method is responsible for the creation of the nodes
+	*/
+	private static Node nodeCreation(){
+		
+	}
 	
 }
