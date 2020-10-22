@@ -9,23 +9,33 @@ public class RunSimulation {
 		
 		//Node creation
 		node = nodeCreation();
+		
 		//Colony creation
+		
 		
 		//Edge creation
 		
+		
 		//RandomUtils creation
+		
 		
 		//Graph creation
 		
+		
 		//Ant creation
+		
 		
 		//Visualizer
 		
+		
 		//Simulator
+		
 		
 		//Additional parameters
 		
+		
 		//Running the simulation
+		
 		
 	}
 	
