@@ -8,7 +8,8 @@ public class RunSimulation {
 		welcomeMessage();
 		
 		System.out.println("Please enter the probability that a node will start as a node containing sugar. (Between 0 and 1.0)");
-	
+		
+		Colony[] colony = 
 		//File or grid
 		/*Colony
 			Total amount of colonies
