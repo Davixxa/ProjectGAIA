@@ -8,8 +8,8 @@ public class RunSimulation {
 		welcomeMessage();
 		
 		System.out.println("Please enter the probability that a node will start as a node containing sugar. (Between 0 and 1.0)");
-		
-		Colony[] colony = 
+		double sugarProb = getDouble(0,1);
+		 
 		//File or grid
 		/*Colony
 			Total amount of colonies
@@ -61,16 +61,17 @@ public class RunSimulation {
 	}
 	
 	
-	private static int getNormalNumber(){
-		int number = 0;
+	private static double getDouble(double min,double max){
+		double number;
+		
 		do {
 			Scanner sc = new Scanner(System.in);
-			number = sc.nextInt();
+			number = sc.nextDouble();
 		
-		if(number > 4000 || number < 1){
-			System.out.println("Skriv venligst et input mellem 1 og 4000");
-		}
-		} while(number > 4000 || number < 1);
+			if(number > max || number < min){
+				System.out.println("Please write a number between " + min + " and " + max + ".");
+			}
+		} while(number > max || number < min);
 		
 		return number;
 	}
