@@ -7,7 +7,6 @@ public class RunSimulation {
 		
 		//Node creation
 		
-		
 		//Colony creation
 		
 		//Edge creation
