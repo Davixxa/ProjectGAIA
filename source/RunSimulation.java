@@ -7,33 +7,46 @@ public class RunSimulation {
 	public static void main(String[] args){
 		welcomeMessage();
 		
-		//Node creation
-		node = nodeCreation();
-		
-		//Colony creation
-		
-		
-		//Edge creation
-		
-		
-		//RandomUtils creation
+		System.out.println("Please enter the probability that a node will start as a node containing sugar. (Between 0 and 1.0)");
+	
+		//File or grid
+		/*Colony
+			Total amount of colonies
+		*/
 		
 		
-		//Graph creation
+		/*Ants
+			Colony(Home)
+		*/
 		
+		/*Graph(Grid)
+			Width
+			Depth
+			Colonies[]
+			Sugar probability
+			Average sugar
+		*/
+			
+		/*Graph(File)
+			Filename
+			Colonies[]
+			Sugar probability
+			Average sugar
+		*/
 		
-		//Ant creation
+		/*Simulator
+			graph
+			ants[]
+			carried
+			dropped pheromones
+		*/
 		
-		
-		//Visualizer
-		
-		
-		//Simulator
-		
-		
-		//Additional parameters
-		
-		
+		/*Visualiser
+			Graph
+			isGrid
+			Node(Start)
+			Ants[]
+		*/
 		//Running the simulation
 		
 		
@@ -46,11 +59,5 @@ public class RunSimulation {
 		
 	}
 	
-	/*
-	* This method is responsible for the creation of the nodes
-	*/
-	private static Node nodeCreation(){
-		
-	}
 	
 }
