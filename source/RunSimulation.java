@@ -2,7 +2,10 @@ import java.util.Scanner;
 
 public class RunSimulation {
 	
-	private static Scanner scanner = new Scanner(System.in);
+	private static Scanner scanner = new Scanner(System.in);		
+	private static Visualizer visualizer;
+	private static Simulator simulator;
+	private static Graph graph;
 	
 	public static void main(String[] args){
 		welcomeMessage();
@@ -21,9 +24,18 @@ public class RunSimulation {
 		
 		System.out.println("Please enter the total number of ant colonies. (Stricly greater than 0)");
 		int totalColonies = getInt(1);
+		Colony[] homes = new Colony[totalColonies];
+		for(int i = 0; i < homes.length; i++){
+			homes[i] = new Colony();
+		}
 		
 		System.out.println("Please enter the number of ants initially at each colony. (Greater than 0)");
 		int initialAnts = getInt(0);
+		int totalAnts = initialAnts * totalColonies;
+		Ant[] ants = new Ant[totalAnts];
+		for(int i = 0; i < ants.length; i++){
+			ants[i] = new Ant(homes[i % totalColonies]);
+		}
 		
 		System.out.println("Please enter the type of graph to use: \n 1. grid \n 2. file");
 		boolean isGrid = (1 == getIntBetween(1,2));
@@ -35,10 +47,14 @@ public class RunSimulation {
 			
 			System.out.println("Please enter the depth of the graph. (Greater than 3)");
 			int depth = getInt(3);
-		} 
+			
+			graph = new Graph(width, depth, homes, sugarProb, averageSugar);
+		} 	
 		else {
 			System.out.println("Please enter the name of the file storing the graph.");
 			String filename = scanner.next();
+			
+			graph = new Graph(filename, homes, sugarProb, averageSugar);
 		}
 		
 		System.out.println("Please enter the total simulation time. (Greater than 0)");
@@ -53,6 +69,10 @@ public class RunSimulation {
 			int updateFrequency = getInt(1);
 		}
 		
+		simulator = new Simulator(graph, ants, carriedSugar, droppedPheromones);
+		visualizer = new Visualizer(graph, isGraph, homes[0], ants);
+		
+		visualizer.display();
 		//File or grid
 		/*Colony
 			Total amount of colonies
