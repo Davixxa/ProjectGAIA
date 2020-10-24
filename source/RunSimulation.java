@@ -11,8 +11,7 @@ public class RunSimulation {
 		welcomeMessage();
 		
 		System.out.println("Please enter the probability that a node will start as a node containing sugar. (Between 0 and 1.0)");
-<<<<<<< Updated upstream
-		double sugarProb = getDouble(0,1);
+		double sugarProb = getDouble(0,1.0);
 		
 		System.out.println("Please enter the average amount of sugar in a node. (Greater than 0)");
 		int averageSugar = getInt(0);
@@ -87,10 +86,6 @@ public class RunSimulation {
 			visualizer.update();
 		}
 		
-=======
-		double sugarProb = getDouble(0,1.0);
-		 
->>>>>>> Stashed changes
 		//File or grid
 		/*Colony
 			Total amount of colonies
