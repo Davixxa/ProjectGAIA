@@ -2,14 +2,60 @@ import java.util.Scanner;
 
 public class RunSimulation {
 	
-	private static Scanner scanner = new Scanner(System.in);		
+	private static Scanner scanner = new Scanner(System.in);
 	private static Visualizer visualizer;
 	private static Simulator simulator;
-	private static Graph graph;
 	
 	public static void main(String[] args){
 		welcomeMessage();
+		boolean endProgram;
 		
+		do{
+			init();
+			
+			System.out.println("Please enter the total simulation time. (Greater than 0)");
+			int totalSimulationTime = getInt(0);
+			
+			System.out.println("Please enter the desired viewing mode:  \n 1. Textual summary \n 2. Graphical representation");
+			boolean isGraph = (2 == getIntBetween(1,2));
+			
+			//Checks if additional information is needed.
+			if(!isGraph){
+				System.out.println("Please enter the update frequency. (Stricly greater than 0)");
+				int updateFrequency = getInt(1);
+				
+				//Loop to run the simulation in textual summary
+				for(int simulationTime = 0; simulationTime < totalSimulationTime; simulationTime++){
+					simulator.tick();
+					if(simulationTime % updateFrequency == 0 || (simulationTime + 1) == totalSimulationTime)
+						visualizer.printStatus();
+				}
+			}
+			else {
+				visualizer.display();
+			
+				//Loop to run the simulation
+				for(int simulationTime = 0; simulationTime < totalSimulationTime; simulationTime++){
+					simulator.tick();
+					visualizer.update();
+				}
+			}
+
+			System.out.println("What would you like to do now? \n 1. Make another simulation \n 2. Stop the program");
+			endProgram = (2 == getIntBetween(1,2));
+		}while(!endProgram);	
+		
+		System.exit(0);
+	}
+	
+	/*
+	* This method prints the welcome screen when the program is opened
+	*/
+	private static void welcomeMessage(){
+		
+	}
+	
+	private static void init(){
 		System.out.println("Please enter the probability that a node will start as a node containing sugar. (Between 0 and 1.0)");
 		double sugarProb = getDouble(0,1.0);
 		
@@ -39,6 +85,7 @@ public class RunSimulation {
 		
 		System.out.println("Please enter the type of graph to use: \n 1. grid \n 2. file");
 		boolean isGrid = (1 == getIntBetween(1,2));
+		Graph graph;
 		
 		//Checks which additional information is needed.
 		if(isGrid){
@@ -57,92 +104,15 @@ public class RunSimulation {
 			graph = new Graph(filename, homes, sugarProb, averageSugar);
 		}
 		
-		System.out.println("Please enter the total simulation time. (Greater than 0)");
-		int totalSimulationTime = getInt(0);
-		
-		System.out.println("Please enter the desired viewing mode:  \n 1. textual summary \n 2. graphical representation");
-		boolean isGraph = (2 == getIntBetween(1,2));
-		
-		//Checks if additional information is needed.
-		if(!isGraph){
-			System.out.println("Please enter the update frequency. (Stricly greater than 0)");
-			int updateFrequency = getInt(1);
-		}
-		
 		simulator = new Simulator(graph, ants, carriedSugar, droppedPheromones);
-		visualizer = new Visualizer(graph, isGraph, homes[0], ants);
-		
-		visualizer.display();
-		
-		boolean stopProgram = false;
-		
-		//Loop to run the simulation
-		while(totalSimulationTime > 0 && !stopProgram){
-			System.out.println("Ticks left in simulation: " + totalSimulationTime);
-			System.out.println("Would you like to continue the simulation? (true/false)");
-			stopProgram = !scanner.nextBoolean();
-			totalSimulationTime = totalSimulationTime - 1;
-			simulator.tick();
-			visualizer.update();
-		}
-		
-		//File or grid
-		/*Colony
-			Total amount of colonies
-		*/
-		
-		
-		/*Ants
-			Colony(Home)
-		*/
-		
-		/*Graph(Grid)
-			Width
-			Depth
-			Colonies[]
-			Sugar probability
-			Average sugar
-		*/
-			
-		/*Graph(File)
-			Filename
-			Colonies[]
-			Sugar probability
-			Average sugar
-		*/
-		
-		/*Simulator
-			graph
-			ants[]
-			carried
-			dropped pheromones
-		*/
-		
-		/*Visualiser
-			Graph
-			isGrid
-			Node(Start)
-			Ants[]
-		*/
-		//Running the simulation
-		
-		
+		visualizer = new Visualizer(graph, isGrid, homes[0], ants);
 	}
-	
-	/*
-	* This method prints the welcome screen when the program is opened
-	*/
-	private static void welcomeMessage(){
-		
-	}
-	
 	
 	private static double getDouble(double min,double max){
 		double number;
 		
 		do {
-			Scanner sc = new Scanner(System.in);
-			number = sc.nextDouble();
+			number = scanner.nextDouble();
 		
 			if(number > max || number < min){
 				System.out.println("Please write a number between " + min + " and " + max + ".");
@@ -156,8 +126,7 @@ public class RunSimulation {
 		int number;
 		
 		do {
-			Scanner sc = new Scanner(System.in);
-			number = sc.nextInt();
+			number = scanner.nextInt();
 		
 			if(number < min){
 				System.out.println("Please write a number greater than " + min + ".");
@@ -171,8 +140,7 @@ public class RunSimulation {
 		int number;
 		
 		do {
-			Scanner sc = new Scanner(System.in);
-			number = sc.nextInt();
+			number = scanner.nextInt();
 		
 			if(number < min || number > max){
 				System.out.println("Please write a number greater than " + min + ".");
