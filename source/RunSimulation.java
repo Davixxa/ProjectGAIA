@@ -73,6 +73,19 @@ public class RunSimulation {
 		visualizer = new Visualizer(graph, isGraph, homes[0], ants);
 		
 		visualizer.display();
+		
+		boolean stopProgram = false;
+		
+		//Loop to run the simulation
+		while(totalSimulationTime > 0 && !stopProgram){
+			System.out.println("Ticks left in simulation: " + totalSimulationTime);
+			System.out.println("Would you like to continue the simulation? (true/false)");
+			stopProgram = !scanner.nextBoolean();
+			totalSimulationTime = totalSimulationTime - 1;
+			simulator.tick();
+			visualizer.update();
+		}
+		
 		//File or grid
 		/*Colony
 			Total amount of colonies
