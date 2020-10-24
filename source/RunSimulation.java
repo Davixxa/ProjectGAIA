@@ -71,7 +71,8 @@ public class RunSimulation {
 		System.out.println("Please enter the total number of ant colonies. (Stricly greater than 0)");
 		int totalColonies = getInt(1);
 		Colony[] homes = new Colony[totalColonies];
-		for(int i = 0; i < homes.length; i++){
+		
+		for(int i = 0; i < homes.length; i++){ //Initializes the Colonies in homes[]
 			homes[i] = new Colony();
 		}
 		
@@ -79,7 +80,8 @@ public class RunSimulation {
 		int initialAnts = getInt(0);
 		int totalAnts = initialAnts * totalColonies;
 		Ant[] ants = new Ant[totalAnts];
-		for(int i = 0; i < ants.length; i++){
+		
+		for(int i = 0; i < ants.length; i++){ //Initializes the ants in ants[]
 			ants[i] = new Ant(homes[i % totalColonies]);
 		}
 		
