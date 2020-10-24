@@ -1,5 +1,3 @@
-//Skal textual summary være i cmd eller skal det gøres med visualiserens indbyggede methode
-
 import java.util.Scanner;
 
 public class RunSimulation {
