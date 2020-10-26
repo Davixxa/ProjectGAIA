@@ -55,6 +55,9 @@ public class RunSimulation {
 		
 	}
 	
+	/*
+	* Initializes the simulator and the visualizer
+	*/
 	private static void init(){
 		System.out.println("Please enter the probability that a node will start as a node containing sugar. (Between 0 and 1.0)");
 		double sugarProb = getDouble(0,1.0);
