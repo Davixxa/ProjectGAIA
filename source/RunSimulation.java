@@ -135,23 +135,6 @@ public class RunSimulation {
 	}
 	
 	/*
-	* Returns an int from the user greater than or equal to min.
-	*/
-	private static int getInt(int min){
-		int number;
-		
-		do {//Making sure the number is greater than min
-			number = scanner.nextInt();
-		
-			if(number < min){
-				System.out.println("Please write a number greater than " + min + ".");
-			}
-		} while(number < min);
-		
-		return number;
-	}
-	
-	/*
 	* Returns an int from the user between min and max.
 	* Precondition: min < max.
 	*/
@@ -165,6 +148,23 @@ public class RunSimulation {
 				System.out.println("Please write a number between " + min + " and " + max + ".");
 			}
 		} while(number < min || number > max);
+		
+		return number;
+	}
+	
+	/*
+	* Returns an int from the user greater than or equal to min.
+	*/
+	private static int getInt(int min){
+		int number;
+		
+		do {//Making sure the number is greater than min
+			number = scanner.nextInt();
+		
+			if(number < min){
+				System.out.println("Please write a number greater than " + min + ".");
+			}
+		} while(number < min);
 		
 		return number;
 	}
