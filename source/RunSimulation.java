@@ -3,12 +3,12 @@ import java.util.Scanner;
 public class RunSimulation {
 	
 	private static Scanner scanner = new Scanner(System.in);
-	private static Visualizer visualizer;
-	private static Simulator simulator;
+	private static Visualizer visualizer;//For simplicity
+	private static Simulator simulator;//For simplicity
 	
 	public static void main(String[] args){
 		welcomeMessage();
-		boolean endProgram;
+		boolean endProgram = false;
 		
 		do{
 			init();
@@ -123,7 +123,7 @@ public class RunSimulation {
 	private static double getDoubleBetween(double min,double max){
 		double number;
 		
-		do {
+		do {//Used for making sure the number is between min and max
 			number = scanner.nextDouble();
 		
 			if(number > max || number < min){
@@ -140,7 +140,7 @@ public class RunSimulation {
 	private static int getInt(int min){
 		int number;
 		
-		do {
+		do {//Making sure the number is greater than min
 			number = scanner.nextInt();
 		
 			if(number < min){
@@ -158,7 +158,7 @@ public class RunSimulation {
 	private static int getIntBetween(int min, int max){
 		int number;
 		
-		do {
+		do {//Used for making sure the number is between min and max
 			number = scanner.nextInt();
 		
 			if(number < min || number > max){
