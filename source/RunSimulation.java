@@ -60,6 +60,7 @@ public class RunSimulation {
 	* Initializes the simulator and the visualizer
 	*/
 	private static void init(){
+		//First we start with inputs that are simple datatypes
 		System.out.println("Please enter the probability that a node will start as a node containing sugar. (Between 0 and 1.0)");
 		double sugarProb = getDoubleBetween(0,1.0);
 		
@@ -71,6 +72,7 @@ public class RunSimulation {
 		
 		System.out.println("Please enter the number of units of pheromones dropped by an ant when passing through a node. (Greater than 0)");
 		int droppedPheromones = getInt(0);
+		
 		
 		System.out.println("Please enter the total number of ant colonies. (Stricly greater than 0)");
 		int totalColonies = getInt(1);
