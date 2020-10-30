@@ -34,7 +34,7 @@ public class RunSimulation {
 			else {
 				visualizer.display();
 			
-				//Loop to run the simulation
+				//Loop to run the simulation with grafical interface
 				for(int simulationTime = 0; simulationTime < totalSimulationTime; simulationTime++){
 					simulator.tick();
 					visualizer.update();
@@ -43,6 +43,7 @@ public class RunSimulation {
 
 			System.out.println("What would you like to do now? \n 1. Make another simulation \n 2. Stop the program");
 			endProgram = (2 == getIntBetween(1,2));
+			
 		}while(!endProgram);	
 		
 		System.exit(0);
@@ -60,7 +61,7 @@ public class RunSimulation {
 	*/
 	private static void init(){
 		System.out.println("Please enter the probability that a node will start as a node containing sugar. (Between 0 and 1.0)");
-		double sugarProb = getDouble(0,1.0);
+		double sugarProb = getDoubleBetween(0,1.0);
 		
 		System.out.println("Please enter the average amount of sugar in a node. (Greater than 0)");
 		int averageSugar = getInt(0);
@@ -113,7 +114,11 @@ public class RunSimulation {
 		visualizer = new Visualizer(graph, isGrid, homes[0], ants);
 	}
 	
-	private static double getDouble(double min,double max){
+	/*
+	* Returns an double from the user between min and max.
+	* Precondition: min < max.
+	*/
+	private static double getDoubleBetween(double min,double max){
 		double number;
 		
 		do {
@@ -127,6 +132,9 @@ public class RunSimulation {
 		return number;
 	}
 	
+	/*
+	* Returns an int from the user greater than or equal to min.
+	*/
 	private static int getInt(int min){
 		int number;
 		
@@ -141,6 +149,10 @@ public class RunSimulation {
 		return number;
 	}
 	
+	/*
+	* Returns an int from the user between min and max.
+	* Precondition: min < max.
+	*/
 	private static int getIntBetween(int min, int max){
 		int number;
 		
@@ -148,7 +160,7 @@ public class RunSimulation {
 			number = scanner.nextInt();
 		
 			if(number < min || number > max){
-				System.out.println("Please write a number greater than " + min + ".");
+				System.out.println("Please write a number between " + min + " and " + max + ".");
 			}
 		} while(number < min || number > max);
 		
