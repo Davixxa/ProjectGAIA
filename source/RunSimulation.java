@@ -53,7 +53,7 @@ public class RunSimulation {
 	* This method prints the welcome screen when the program is opened
 	*/
 	private static void welcomeMessage(){
-		
+		System.out.println("Hello!\nThis program is a simplistic simulation of one or more ant colonies.\nThe nodes act as locations the ants can visit and they can contain sugar. The ants need sugar to survive.\nIf you plan to read the graph from a file instead of randomly generating it please make sure what you write matches the file.\n");
 	}
 	
 	/*
