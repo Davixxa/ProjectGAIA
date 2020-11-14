@@ -7,7 +7,6 @@ public class Edge{
 	/*
 	*Constructor for the edge:
 	*Creates a new edge between n1 and n2 with a pheromone level of 0
-	*PRECONDITIONS: n1 != n2
 	*/
 	public Edge(Node n1, Node n2){
 		source = n1;
@@ -47,7 +46,6 @@ public class Edge{
 	
 	/*
 	*Increases the pheromone level by the given amount
-	*PRECONDITION: amount >= 0
 	*/
 	public void raisePheromones(int amount){
 		pheromones = pheromones + amount;
