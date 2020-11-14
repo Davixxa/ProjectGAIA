@@ -1,4 +1,5 @@
 public class Edge{
+	//Instance variables
 	private Node source;
 	private Node target;
 	private double pheromones;
@@ -6,12 +7,15 @@ public class Edge{
 	/*
 	*Constructor for the edge:
 	*Creates a new edge between n1 and n2 with a pheromone level of 0
+	*PRECONDITIONS: n1 != n2
 	*/
 	public Edge(Node n1, Node n2){
 		source = n1;
 		target = n2;
 		pheromones = 0;
 	}
+	
+	//Contract methods
 	
 	/*
 	*Getter for the source node
