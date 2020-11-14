@@ -2,7 +2,7 @@ public class Edge{
 	//Instance variables
 	private Node source;
 	private Node target;
-	private double pheromones;
+	private int pheromones;
 	
 	/*
 	*Constructor for the edge:

@@ -47,7 +47,7 @@ public class Ant {
 	}
 	
 	//Returns whether this Ant's previous position is home
-	public boolean isAtHome(){
+	public boolean wasAtHome(){
 		return previousPosition.equals(home);
 	}
 	
