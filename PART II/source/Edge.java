@@ -6,12 +6,12 @@ public class Edge{
 	
 	/*
 	*Constructor for the edge:
-	*Creates a new edge between n1 and n2 with a pheromone level of 0
+	*Creates a new edge between source and target with a pheromone level of 0
 	*/
-	public Edge(Node n1, Node n2){
-		source = n1;
-		target = n2;
-		pheromones = 0;
+	public Edge(Node source, Node target){
+		this.source = source;
+		this.target = target;
+		this.pheromones = 0;
 	}
 	
 	//Contract methods
@@ -38,17 +38,18 @@ public class Edge{
 	}
 	
 	/*
-	* Decreases the pheromone level by one
+	*Decreases the pheromone level by one
+	*PRECONDITION:pheromones>0
 	*/
 	public void decreasePheromones(){
-		pheromones = pheromones - 1;
+		this.pheromones = this.pheromones - 1;
 	}
 	
 	/*
 	*Increases the pheromone level by the given amount
 	*/
 	public void raisePheromones(int amount){
-		pheromones = pheromones + amount;
+		this.pheromones = this.pheromones + amount;
 	}
 	
 }
