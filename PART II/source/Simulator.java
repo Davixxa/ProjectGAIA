@@ -1,86 +1,81 @@
 public class Simulator{
-	
 	//Instance variables
-	Graph graph;
-	Ant[] ants;
-	int carriedSugar;
-	int droppedPheromones;
+	private Graph graph;
+	private Ant[] ants;
+	private int sugarCarried;
+	private int droppedPheromones;
 	
-	//Class Atributes
-	
-	//Constructor
-	public Simulator(Graph graph, Ant[] ants, int carriedSugar, int droppedPheromones){
+	public Simulator(Graph graph,Ant[] ants,int sugarCarried,int droppedPheromones){
 		this.graph = graph;
 		this.ants = ants;
-		this.carriedSugar = carriedSugar;
+		this.sugarCarried = sugarCarried;
 		this.droppedPheromones = droppedPheromones;
 	}
 	
-	public void tick() {
-		//First decrease all pheromone leves
+	public void tick(){
 		graph.tick();
 		
-		//Decisions for all Ants
-		for(int i = 0; i < ants.length; i++){
-			if(ants[i]!=null){
-					
-				//Ants that arrived in previous tick must eat sugar
-				if(ants[i].isAtHome()){
-					//er ikke helt sikker på denne implementering...
-					if(ants[i].home().hasStock())
-						ants[i].home().consume();
-					else
-						ants[i]=null;
-				} 
-				//Make a move
-				else { 
-					//first description
-					if(!ants[i].carrying() && ants[i].current().sugar() > 0){
-						ants[i].current().decreaseSugar();
-						ants[i].pickUpSugar();
-					}
-					
-					//second description
-					else if(graph.adjacentTo(ants[i].current()).length <= 1){
-						ants[i].move(graph.adjacentTo(ants[i].current())[0]);
-					}
-					
-					//third description
-					else {
-						Node[] posibleNodes = graph.adjacentTo(ants[i].current());
-						double highestProbability = 0.0;
-						int indexOfHighestProbability = 0;
-						
-						//Computing all the probalities and saving the best.
-						for(int j = 0; j < posibleNodes.length; j++){
-							//should not return to previous node
-							if(!posibleNodes[j].equals(ants[i].previous())){
-								int sumOfPheromones = 0;
+		for(int i = 0;i < ants.length;i++){
+			Ant currentAnt = ants[i];
 			
-								for(int z = 0; z > posibleNodes.length; z++){
-									sumOfPheromones += graph.pheromoneLevel(ants[i].current(), posibleNodes[z]);
-								}
-								
-								double probability = (graph.pheromoneLevel(ants[i].current(), posibleNodes[j]) + 1.0) / ( sumOfPheromones + posibleNodes.length - 1.0 );
-								
-								if(probability >= highestProbability){
-									highestProbability = probability;
-									indexOfHighestProbability = j;
-								}
-							}
-						}
+			if(currentAnt.isAtHome()){
+				if(currentAnt.home().hasStock())
+					currentAnt.home().consume();
+				
+				//else
+					/*ant=dø*/
+					// ants[i] = null;
+					// Husk check i starten af loop om ants[i] == null. !
 					
-						//Move the ant to the correct node
-						ants[i].move(posibleNodes[indexOfHighestProbability]);
-					}
-					
-					//fourth description
-					if(ants[i].isAtHome() && ants[i].carrying()){
-						ants[i].dropSugar();
-						ants[i].home().topUp(carriedSugar);
-					}
-				}
+			}
+			
+			else if((!currentAnt.carrying()) && (currentAnt.current().sugar()>0)){
+				currentAnt.current().decreaseSugar();
+				currentAnt.pickUpSugar();
+				currentAnt.move(currentAnt.previous());
+			}
+			
+			if(graph.adjacentTo(currentAnt.current()).length == 1){
+				currentAnt.move(graph.adjacentTo(currentAnt.current())[0]);
+			}
+			
+			else{
+				currentAnt.move(movePicker(currentAnt));
+			}
+			
+			if(currentAnt.current() == currentAnt.home() && currentAnt.carrying()){
+				currentAnt.home().topUp(sugarCarried);
+				currentAnt.dropSugar();
 			}
 		}
-	}	
+	}
+	
+	private Node movePicker(Ant currentAnt){
+		Node currentNode = currentAnt.current();
+		int sumOfPheromones = 0;
+		Node[] neighbours = graph.adjacentTo(currentNode);
+		
+		for(int i = 0; i < neighbours.length; i++){
+			if(!neighbours[i].equals(currentAnt.previous()))
+				sumOfPheromones = sumOfPheromones + graph.pheromoneLevel(currentNode, neighbours[i]);
+		}
+		
+		Node move = currentNode;
+		boolean coinFlip = false;
+		int i = 0;
+		
+		while(i < neighbours.length && !coinFlip){
+			if(!neighbours[i].equals(currentAnt.previous())){
+				double probability = (graph.pheromoneLevel(currentNode, neighbours[i])) / (sumOfPheromones + (neighbours.length - 1.0));
+				coinFlip = RandomUtils.coinFlip(probability);
+				if (coinFlip){
+					move = neighbours[i];
+				}
+			}
+			
+			i = i + 1;
+		}
+		
+		return move;
+	}
 }
