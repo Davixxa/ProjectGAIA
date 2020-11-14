@@ -25,8 +25,7 @@ public class Simulator{
 			//Ants that arrived in previous tick must eat sugar
 			if(ants[i].wasAtHome()){
 				//er ikke helt sikker på denne implementering...
-				Colony home = (Colony) ants[i].previous();
-				home.hasStock() ? home.consume() : //ellers dø????
+				ants[i].home().hasStock() ? ants[i].home().consume() : //ellers dø????
 			} 
 			//Make a move
 			else { 
@@ -43,7 +42,7 @@ public class Simulator{
 				
 				//third description
 				else {
-					Node[] posibleNodes = graph.adjacentTo(ants[i].current);
+					Node[] posibleNodes = graph.adjacentTo(ants[i].current());
 					double highestProbability = 0.0;
 					int indexOfHighestProbability = 0;
 					
