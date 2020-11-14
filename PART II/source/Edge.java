@@ -1,4 +1,5 @@
 public class Edge{
+	//Instance variables
 	private Node source;
 	private Node target;
 	private double pheromones;
@@ -12,6 +13,8 @@ public class Edge{
 		target = n2;
 		pheromones = 0;
 	}
+	
+	//Contract methods
 	
 	/*
 	*Getter for the source node
@@ -43,7 +46,6 @@ public class Edge{
 	
 	/*
 	*Increases the pheromone level by the given amount
-	*PRECONDITION: amount >= 0
 	*/
 	public void raisePheromones(int amount){
 		pheromones = pheromones + amount;
