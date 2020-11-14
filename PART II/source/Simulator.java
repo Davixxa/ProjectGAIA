@@ -6,7 +6,7 @@ public class Simulator{
 	int carriedSugar;
 	int droppedPheromones;
 	
-	//Class variables
+	//Class Atributes
 	
 	//Constructor
 	public Simulator(Graph graph, Ant[] ants, int carriedSugar, int droppedPheromones){
