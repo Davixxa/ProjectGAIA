@@ -51,5 +51,5 @@ public class Edge{
 	public void raisePheromones(int amount){
 		this.pheromones = this.pheromones + amount;
 	}
-	
+	//How the fokk???
 }

@@ -17,39 +17,40 @@ public class Simulator{
 		
 		for(int i = 0;i < ants.length;i++){
 			Ant currentAnt = ants[i];
-			
-			if(currentAnt.isAtHome()){
-				if(currentAnt.home().hasStock())
-					currentAnt.home().consume();
-				
-				//else
-					/*ant=dø*/
-					// ants[i] = null;
-					// Husk check i starten af loop om ants[i] == null. !
+			if(currentAnt != null){
+				if(currentAnt.isAtHome()){
+					if(currentAnt.home().hasStock())
+						currentAnt.home().consume();
 					
-			}
-			
-			else if((!currentAnt.carrying()) && (currentAnt.current().sugar()>0)){
-				currentAnt.current().decreaseSugar();
-				currentAnt.pickUpSugar();
-				currentAnt.move(currentAnt.previous());
-			}
-			
-			if(graph.adjacentTo(currentAnt.current()).length == 1){
-				currentAnt.move(graph.adjacentTo(currentAnt.current())[0]);
-			}
-			
-			else{
-				currentAnt.move(movePicker(currentAnt));
-			}
-			
-			if(currentAnt.current() == currentAnt.home() && currentAnt.carrying()){
-				currentAnt.home().topUp(sugarCarried);
-				currentAnt.dropSugar();
+					else
+						ants[i] = null;
+				}
+				
+				else if((!currentAnt.carrying()) && (currentAnt.current().sugar()>0)){
+					currentAnt.current().decreaseSugar();
+					currentAnt.pickUpSugar();
+					currentAnt.move(currentAnt.previous());
+				}
+				
+				if(graph.adjacentTo(currentAnt.current()).length == 1){
+					currentAnt.move(graph.adjacentTo(currentAnt.current())[0]);
+				}
+				
+				else{
+					currentAnt.move(movePicker(currentAnt));
+				}
+				
+				if(currentAnt.current() == currentAnt.home() && currentAnt.carrying()){
+					currentAnt.home().topUp(sugarCarried);
+					currentAnt.dropSugar();
+				}
 			}
 		}
 	}
 	
+	/*
+	*This method handles the process of picking the node the given ant will move to
+	*/
 	private Node movePicker(Ant currentAnt){
 		Node currentNode = currentAnt.current();
 		int sumOfPheromones = 0;
