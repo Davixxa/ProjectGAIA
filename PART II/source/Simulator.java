@@ -1,4 +1,5 @@
 public class Simulator{
+	
 	//Instance variables
 	private Graph graph;
 	private Ant[] ants;
@@ -16,33 +17,32 @@ public class Simulator{
 		graph.tick();
 		
 		for(int i = 0;i < ants.length;i++){
-			Ant currentAnt = ants[i];
-			if(currentAnt != null){
-				if(currentAnt.isAtHome()){
-					if(currentAnt.home().hasStock())
-						currentAnt.home().consume();
+			if(ants[i] != null){
+				if(ants[i].isAtHome()){
+					if(ants[i].home().hasStock())
+						ants[i].home().consume();
 					
 					else
 						ants[i] = null;
 				}
 				
-				else if((!currentAnt.carrying()) && (currentAnt.current().sugar()>0)){
-					currentAnt.current().decreaseSugar();
-					currentAnt.pickUpSugar();
-					currentAnt.move(currentAnt.previous());
+				else if((!ants[i].carrying()) && (ants[i].current().sugar()>0)){
+					ants[i].current().decreaseSugar();
+					ants[i].pickUpSugar();
+					ants[i].move(ants[i].previous());
 				}
 				
-				if(graph.adjacentTo(currentAnt.current()).length == 1){
-					currentAnt.move(graph.adjacentTo(currentAnt.current())[0]);
+				if(graph.adjacentTo(ants[i].current()).length == 1){
+					ants[i].move(graph.adjacentTo(ants[i].current())[0]);
 				}
 				
 				else{
-					currentAnt.move(movePicker(currentAnt));
+					ants[i].move(movePicker(ants[i]));
 				}
 				
-				if(currentAnt.current() == currentAnt.home() && currentAnt.carrying()){
-					currentAnt.home().topUp(sugarCarried);
-					currentAnt.dropSugar();
+				if(ants[i].current() == ants[i].home() && ants[i].carrying()){
+					ants[i].home().topUp(sugarCarried);
+					ants[i].dropSugar();
 				}
 			}
 		}
@@ -51,13 +51,13 @@ public class Simulator{
 	/*
 	*This method handles the process of picking the node the given ant will move to
 	*/
-	private Node movePicker(Ant currentAnt){
-		Node currentNode = currentAnt.current();
+	private Node movePicker(Ant ant){
+		Node currentNode = ant.current();
 		int sumOfPheromones = 0;
 		Node[] neighbours = graph.adjacentTo(currentNode);
 		
 		for(int i = 0; i < neighbours.length; i++){
-			if(!neighbours[i].equals(currentAnt.previous()))
+			if(!neighbours[i].equals(ant.previous()))
 				sumOfPheromones = sumOfPheromones + graph.pheromoneLevel(currentNode, neighbours[i]);
 		}
 		
@@ -66,7 +66,7 @@ public class Simulator{
 		int i = 0;
 		
 		while(i < neighbours.length && !coinFlip){
-			if(!neighbours[i].equals(currentAnt.previous())){
+			if(!neighbours[i].equals(ants[i].previous())){
 				double probability = (graph.pheromoneLevel(currentNode, neighbours[i])) / (sumOfPheromones + (neighbours.length - 1.0));
 				coinFlip = RandomUtils.coinFlip(probability);
 				if (coinFlip){
