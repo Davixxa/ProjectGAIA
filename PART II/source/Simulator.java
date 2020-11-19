@@ -13,21 +13,94 @@ public class Simulator{
 		this.droppedPheromones = droppedPheromones;
 	}
 	
+	/*
+	*
+	*/
 	public void tick(){
 		graph.tick();
 		
 		for(int i = 0;i < ants.length;i++){
 			if(ants[i] != null){
-				System.out.println("Ant " + i " alive");
-				if(ants[i].isAtHome()){
-					System.out.println("Ant " + i + " home");
+				//What to do if the ant arrived home in the previous tick
+				if(ants[i].isAtHome() && ants[i].previous != ants[i].home){
 					if(ants[i].home().hasStock())
 						ants[i].home().consume();
-						System.out.println("Ant " + i + " has eaten at home");
-					
 					else
 						ants[i] = null;
+				}
+				
+				else if((!ants[i].carrying()) && (ants[i].current().sugar()>0)){
+						ants[i].current().decreaseSugar();
+						ants[i].pickUpSugar();
+						ants[i].move(ants[i].previous());
+				}
+				
+				if(graph.adjacentTo(ants[i].current()).length == 1){
+					ants[i].move(graph.adjacentTo(ants[i].current())[0]);
+				}
+				
+				else{
+					ants[i].move(movePicker(ants[i]));
+				}
+				
+				if(ants[i].current() == ants[i].home() && ants[i].carrying()){
+					ants[i].home().topUp(sugarCarried);
+					ants[i].dropSugar();
+				}
+			}
+		}
+	}
+	
+	/*
+	*This method handles the process of picking the node the given ant will move to
+	*/
+	private Node movePicker(Ant ant){
+		
+		Node currentNode = ant.current();
+		int sumOfPheromones = 0;
+		Node[] neighbours = graph.adjacentTo(currentNode);
+		
+		for(int i = 0; i < neighbours.length; i++){
+			if(!neighbours[i].equals(ant.previous()))
+				sumOfPheromones = sumOfPheromones + graph.pheromoneLevel(currentNode, neighbours[i]);
+		}
+		
+		Node move = currentNode;
+		boolean coinFlip = false;
+		int i = 0;
+		
+		while(i < neighbours.length && !coinFlip){
+			if(!neighbours[i].equals(ants[i].previous())){
+				double probability = (graph.pheromoneLevel(currentNode, neighbours[i])) / (sumOfPheromones + (neighbours.length - 1.0));
+				coinFlip = RandomUtils.coinFlip(probability);
+				if (coinFlip){
+					move = neighbours[i];
+				}
+			}
+			
+			i = i + 1;
+		}
+		
+		return move;
+	}
+	/*For testing purposes
+	public void tick(){
+		graph.tick();
+		
+		for(int i = 0;i < ants.length;i++){
+			if(ants[i] != null){
+				System.out.println("Ant " + i + " alive");
+				if(ants[i].isAtHome()){
+					System.out.println("Ant " + i + " home");
+					if(ants[i].home().hasStock()){
+						ants[i].home().consume();
+						System.out.println("Ant " + i + " has eaten at home");
+					}
+					
+					else{
+						ants[i] = null;
 						System.out.println("Ant " + i + " dead");
+					}
 				}
 				
 				else if((!ants[i].carrying()) && (ants[i].current().sugar()>0)){
@@ -54,10 +127,11 @@ public class Simulator{
 			}
 		}
 	}
-	
+	*/
 	/*
 	*This method handles the process of picking the node the given ant will move to
 	*/
+	/*
 	private Node movePicker(Ant ant){
 		
 		System.out.println("current ant is deciding move");
@@ -89,4 +163,5 @@ public class Simulator{
 		
 		return move;
 	}
+	*/
 }
