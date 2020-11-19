@@ -20,32 +20,42 @@ public class Simulator{
 		graph.tick();
 		
 		for(int i = 0;i < ants.length;i++){
+			//Making sure the ant is alive
 			if(ants[i] != null){
 				//What to do if the ant arrived home in the previous tick
-				if(ants[i].isAtHome() && ants[i].previous != ants[i].home){
-					if(ants[i].home().hasStock())
+				if(ants[i].isAtHome() && !ants[i].wasAtHome()){
+					//if the ant can eat
+					if(ants[i].home().hasStock()){
 						ants[i].home().consume();
-					else
+						//The ant moves from home to home to represent it spending a tick in this node
+						ants[i].move(ants[i].current());
+					}
+					//If there is no food in the colony
+					else{
 						ants[i] = null;
+					}
 				}
 				
-				else if((!ants[i].carrying()) && (ants[i].current().sugar()>0)){
+				//The ant is not home
+				else{
+					//If there is sugar in the current node the ant will pick it up
+					if(!ants[i].carrying() && (ants[i].current().sugar > 0){
 						ants[i].current().decreaseSugar();
 						ants[i].pickUpSugar();
-						ants[i].move(ants[i].previous());
-				}
-				
-				if(graph.adjacentTo(ants[i].current()).length == 1){
+					}
+					//If there is only one neighboring node the ant will move there
+					if(graph.adjacentTo(ants[i].current()).length == 1){
 					ants[i].move(graph.adjacentTo(ants[i].current())[0]);
-				}
-				
-				else{
-					ants[i].move(movePicker(ants[i]));
-				}
-				
-				if(ants[i].current() == ants[i].home() && ants[i].carrying()){
-					ants[i].home().topUp(sugarCarried);
-					ants[i].dropSugar();
+					System.out.println("Ant " + i + " has one neighbour");
+					}
+					else{
+						ants[i].move(movePicker(ants[i]));
+					}
+					//If they arrive home the ant will drop its sugar
+					if(ants[i].isAtHome() && ants[i].carrying()){
+						ants[i].dropSugar();
+						ants[i].home().topUp(sugarCarried);
+					}
 				}
 			}
 		}
