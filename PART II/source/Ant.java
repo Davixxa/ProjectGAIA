@@ -5,9 +5,6 @@ public class Ant {
 	private Node previousPosition;
 	private boolean isCarryingSugar;
 	
-	//Class variables
-	
-	
 	//Constructor which takes a home Colony 
 	public Ant(Colony home){
 		this.home = home;
@@ -16,11 +13,10 @@ public class Ant {
 		isCarryingSugar = false;
 	}
 	
-	//Getters and Setters is already described in contract.
-	
 	//Contract methods
 	
 	//Moves the Ant to the given location
+	//Precondition: It is possible to go the given location, there is a edge between current location and given location.
 	public void move(Node location){
 		previousPosition = currentPosition;
 		currentPosition = location;
@@ -56,10 +52,14 @@ public class Ant {
 		return isCarryingSugar;
 	}
 	
+	//Picks up sugar
+	//Precondition: there is sugar at the current location AND this ant is not already carrying sugar.
 	public void pickUpSugar(){
 		isCarryingSugar = true;
 	}
 	
+	//Drops sugar
+	//Precondition: this ant is home AND carrying sugar.
 	public void dropSugar(){
 		isCarryingSugar = false;
 	}
