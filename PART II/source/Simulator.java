@@ -39,19 +39,20 @@ public class Simulator{
 				//The ant is not home
 				else{
 					//If there is sugar in the current node the ant will pick it up
-					if(!ants[i].carrying() && (ants[i].current().sugar > 0){
+					if(!ants[i].carrying() && (ants[i].current().sugar() > 0)){
 						ants[i].current().decreaseSugar();
 						ants[i].pickUpSugar();
 					}
 					//If there is only one neighboring node the ant will move there
 					if(graph.adjacentTo(ants[i].current()).length == 1){
-					ants[i].move(graph.adjacentTo(ants[i].current())[0]);
-					System.out.println("Ant " + i + " has one neighbour");
+						ants[i].move(graph.adjacentTo(ants[i].current())[0]);
+						graph.raisePheromones(ants.current(),ants.previous());
 					}
 					else{
 						ants[i].move(movePicker(ants[i]));
+						graph.raisePheromones(ants.current(),ants.previous());
 					}
-					//If they arrive home the ant will drop its sugar
+					//If it arrived home the ant will drop its sugar
 					if(ants[i].isAtHome() && ants[i].carrying()){
 						ants[i].dropSugar();
 						ants[i].home().topUp(sugarCarried);
