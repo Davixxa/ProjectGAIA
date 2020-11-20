@@ -46,11 +46,11 @@ public class Simulator{
 					//If there is only one neighboring node the ant will move there
 					if(graph.adjacentTo(ants[i].current()).length == 1){
 						ants[i].move(graph.adjacentTo(ants[i].current())[0]);
-						graph.raisePheromones(ants.current(),ants.previous());
+						graph.raisePheromones(ants[i].current(),ants[i].previous(),this.droppedPheromones);
 					}
 					else{
 						ants[i].move(movePicker(ants[i]));
-						graph.raisePheromones(ants.current(),ants.previous());
+						graph.raisePheromones(ants[i].current(),ants[i].previous(),this.droppedPheromones);
 					}
 					//If it arrived home the ant will drop its sugar
 					if(ants[i].isAtHome() && ants[i].carrying()){
