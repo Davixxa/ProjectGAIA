@@ -38,13 +38,18 @@ public class Simulator{
 				
 				//This part is for the ants that did not arrive home in the previous tick
 				else{
-					//If there is sugar in the current node the ant will pick it up
+					//If there is sugar in the current node the ant will pick it up and it will move to its previous location
+					boolean pickedUpSugar = false;
 					if(!ants[i].carrying() && (ants[i].current().sugar() > 0)){
 						ants[i].current().decreaseSugar();
 						ants[i].pickUpSugar();
+						pickedUpSugar = true;
 					}
+					//If the ant picked up sugar on this tick it will move to its previous location
+					if(pickedUpSugar)
+						ants[i].move(ants[i].previous());
 					//If there is only one neighboring node the ant will move there
-					if(graph.adjacentTo(ants[i].current()).length == 1){
+					else if(graph.adjacentTo(ants[i].current()).length == 1){
 						ants[i].move(graph.adjacentTo(ants[i].current())[0]);
 						graph.raisePheromones(ants[i].current(),ants[i].previous(),this.droppedPheromones);
 					}
