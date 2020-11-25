@@ -53,6 +53,7 @@ public class Simulator{
 						ants[i].move(graph.adjacentTo(ants[i].current())[0]);
 						graph.raisePheromones(ants[i].current(),ants[i].previous(),this.droppedPheromones);
 					}
+					//Else move is decided by movePicker
 					else{
 						ants[i].move(movePicker(ants[i]));
 						graph.raisePheromones(ants[i].current(),ants[i].previous(),this.droppedPheromones);
@@ -88,8 +89,11 @@ public class Simulator{
 		boolean coinFlip = false;
 		int i = 0;
 		
+		//makes a coinflip with given probability for each node, stops when a satisfied flip has been thrown.
 		while(i < neighbours.length && !coinFlip){
+			//to ensure that the ant doesn't go its previous node.
 			if(!neighbours[i].equals(ants[i].previous())){
+				//Calculates the probalitity with given formula
 				double probability = (graph.pheromoneLevel(currentNode, neighbours[i])) / (sumOfPheromones + (neighbours.length - 1.0));
 				coinFlip = RandomUtils.coinFlip(probability);
 				if (coinFlip){

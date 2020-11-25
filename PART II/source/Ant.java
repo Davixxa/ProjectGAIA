@@ -16,7 +16,7 @@ public class Ant {
 	//Contract methods
 	
 	//Moves the Ant to the given location
-	//Precondition: It is possible to go the given location, there is a edge between current location and given location.
+	//Precondition: There should be an edge to the given location from current location.
 	public void move(Node location){
 		previousPosition = currentPosition;
 		currentPosition = location;
@@ -53,13 +53,13 @@ public class Ant {
 	}
 	
 	//Picks up sugar
-	//Precondition: there is sugar at the current location AND this ant is not already carrying sugar.
+	//Precondition: Sugar at current location AND not already carrying sugar.
 	public void pickUpSugar(){
 		isCarryingSugar = true;
 	}
 	
 	//Drops sugar
-	//Precondition: this ant is home AND carrying sugar.
+	//Precondition: The ant is at it's home AND it is carrying sugar.
 	public void dropSugar(){
 		isCarryingSugar = false;
 	}
