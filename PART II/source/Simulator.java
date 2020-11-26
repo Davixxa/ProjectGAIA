@@ -43,7 +43,7 @@ public class Simulator{
 					if(!ants[i].carrying() && (ants[i].current().sugar() > 0)){
 						ants[i].current().decreaseSugar();
 						ants[i].pickUpSugar();
-						//pickedUpSugar = true;
+						pickedUpSugar = true;
 					}
 					//If the ant picked up sugar on this tick it will move to its previous location
 					if(pickedUpSugar){
