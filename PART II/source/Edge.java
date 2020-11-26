@@ -47,6 +47,7 @@ public class Edge{
 	
 	/*
 	*Increases the pheromone level by the given amount
+	*PRECONDITION:amount>0
 	*/
 	public void raisePheromones(int amount){
 		this.pheromones = this.pheromones + amount;
