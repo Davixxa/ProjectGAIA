@@ -86,14 +86,13 @@ public class Simulator{
 				sumOfPheromones = sumOfPheromones + graph.pheromoneLevel(currentNode, neighbours[i]);
 		}
 		
-
 		Node move = currentNode;
 		boolean coinFlip = false;
-		int i = 0;
 		
 		//makes a coinflip with given probability for each node, stops when a satisfied flip has been thrown.
+		int i = 0;
 		while(i < neighbours.length && !coinFlip){
-			//to ensure that the ant doesn't go its previous node.
+			//to ensure that the ant doesn't to go its previous node.
 			if(!neighbours[i].equals(ants[i].previous())){
 				//Calculates the probalitity with given formula
 				double probability = (graph.pheromoneLevel(currentNode, neighbours[i])) / (sumOfPheromones + (neighbours.length - 1.0));
