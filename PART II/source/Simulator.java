@@ -43,19 +43,22 @@ public class Simulator{
 					if(!ants[i].carrying() && (ants[i].current().sugar() > 0)){
 						ants[i].current().decreaseSugar();
 						ants[i].pickUpSugar();
-						pickedUpSugar = true;
+						//pickedUpSugar = true;
 					}
 					//If the ant picked up sugar on this tick it will move to its previous location
-					if(pickedUpSugar)
+					if(pickedUpSugar){
 						ants[i].move(ants[i].previous());
+						graph.raisePheromones(ants[i].current(),ants[i].previous(),droppedPheromones);
+					}
 					//If there is only one neighboring node the ant will move there
 					else if(graph.adjacentTo(ants[i].current()).length == 1){
 						ants[i].move(graph.adjacentTo(ants[i].current())[0]);
-						graph.raisePheromones(ants[i].current(),ants[i].previous(),this.droppedPheromones);
+						graph.raisePheromones(ants[i].current(),ants[i].previous(),droppedPheromones);
 					}
+					//The ant will move to an adjacent node excluding its previous location
 					else{
 						ants[i].move(movePicker(ants[i]));
-						graph.raisePheromones(ants[i].current(),ants[i].previous(),this.droppedPheromones);
+						graph.raisePheromones(ants[i].current(),ants[i].previous(),droppedPheromones);
 					}
 					//If it arrived home the ant will drop its sugar
 					if(ants[i].isAtHome() && ants[i].carrying()){
@@ -89,7 +92,7 @@ public class Simulator{
 		int i = 0;
 		
 		while(i < neighbours.length && !coinFlip){
-			if(!neighbours[i].equals(ants[i].previous())){
+			if(!neighbours[i].equals(ant.previous())){
 				double probability = (graph.pheromoneLevel(currentNode, neighbours[i])) / (sumOfPheromones + (neighbours.length - 1.0));
 				coinFlip = RandomUtils.coinFlip(probability);
 				if (coinFlip){
