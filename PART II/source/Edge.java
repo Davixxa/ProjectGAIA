@@ -39,14 +39,15 @@ public class Edge{
 	
 	/*
 	*Decreases the pheromone level by one
-	*PRECONDITION:pheromones>0
 	*/
 	public void decreasePheromones(){
-		this.pheromones = this.pheromones - 1;
+		if(this.pheromones > 0)
+			this.pheromones = this.pheromones - 1;
 	}
 	
 	/*
 	*Increases the pheromone level by the given amount
+	*PRECONDITION:amount>0
 	*/
 	public void raisePheromones(int amount){
 		this.pheromones = this.pheromones + amount;

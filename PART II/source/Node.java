@@ -5,6 +5,7 @@ public class Node{
 
 	/*
     *Constructor taking one argument, initialising the node with the sugar level provided in the variable sugar.
+	*PRECONDITION:sugar>=0
     */
     public Node(int sugar) {
         this.sugar = sugar;
@@ -35,6 +36,7 @@ public class Node{
 
     /*
     *Sets the value of sugar in the node to a given value sugar.
+	*PRECONDITION:sugar>=0
     */
     public void setSugar(int sugar) {
         this.sugar = sugar;
