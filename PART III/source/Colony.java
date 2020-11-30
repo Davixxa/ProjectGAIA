@@ -26,5 +26,4 @@ public class Colony extends Node{
 	}
 	
 	//No standard methods implemented.
-
 }
