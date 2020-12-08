@@ -23,11 +23,17 @@ public class Graph{
 		this.nodes = new Node[width*depth];
 		
 		//initializing nodes
-		int placedHomes = 0;
+		for(int i = 0; i < homes.length; i++){
+			int place;
+			do{
+				place = RandomUtils.randomInt(nodes.length);
+			}while(nodes[place] != null);
+			nodes[place] = homes[i];
+		}
+		
+		
 		for(int i = 0; i < nodes.length; i++){
-			if(RandomUtils.coinFlip((homes.length - placedHomes)/(nodes.length-i)))
-				nodes[i] = homes[placedHomes];
-			else{
+			if(nodes[i] == null){
 				//Initalizes the nodes and decides if there is sugar
 				if(RandomUtils.coinFlip(sugarProbability))
 					nodes[i] = new Node(RandomUtils.randomPoisson(avgSugar));
@@ -45,11 +51,20 @@ public class Graph{
 				tempEdge.add(new Edge(nodes[i], nodes[i+width]));
 				
 			//To the rigth
-			if(i%width != 0)
+			if(i%width != width-1)
 				tempEdge.add(new Edge(nodes[i], nodes[i+1]));
 		}
 		this.edges = tempEdge.toArray(new Edge[0]);
 		
+		for(int i = 0; i < nodes.length; i++){
+			System.out.print(nodes[i] + " ");
+			if(i%width == width-1)
+				System.out.println();
+		}
+		System.out.println();
+		System.out.println();
+		for(int i = 0; i < edges.length; i++)
+			System.out.println(edges[i].source() + " " + edges[i].target());
 		System.out.println("TEST GRID");
 	}
 	
@@ -65,7 +80,8 @@ public class Graph{
 			//Initializing nodes
 			this.nodes = new Node[scanner.nextInt()];
 			for(int i = 0; i < homes.length; i++){
-				nodes[scanner.nextInt()] = homes[i];
+				System.out.println(i);
+				nodes[scanner.nextInt()-1] = homes[i];
 			}
 			
 			for(int i = 0; i < nodes.length; i++){
@@ -82,9 +98,9 @@ public class Graph{
 			ArrayList<Edge> tempEdge = new ArrayList<>();
 			
 			while(scanner.hasNextInt())
-				tempEdge.add(new Edge(nodes[scanner.nextInt()],nodes[scanner.nextInt()]));
+				tempEdge.add(new Edge(nodes[scanner.nextInt()-1],nodes[scanner.nextInt()-1]));
 			
-			this.edges = (Edge[]) tempEdge.toArray();
+			this.edges = tempEdge.toArray(new Edge[0]);
 			}
 		catch(FileNotFoundException e){
 			System.out.println("The file does not exist");
