@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.NumberFormatException;
 
 public class Graph{
 	//Instance variables
@@ -37,36 +38,29 @@ public class Graph{
 		//Creating the edges
 		ArrayList<Edge> tempEdge = new ArrayList<>();
 		
-		for(int i = 0; i < nodes.length; i++){
+		//The last node does not connect to anything as source.
+		for(int i = 0; i < nodes.length - 1; i++){
 			//Below
 			if(!(i+width > nodes.length-1))
-				tempEdge.add(new Edge(nodes[i],nodes[i+width]));
+				tempEdge.add(new Edge(nodes[i], nodes[i+width]));
 				
 			//To the rigth
 			if(i%width != 0)
-				tempEdge.add(new Edge(nodes[i],nodes[i+1]));
+				tempEdge.add(new Edge(nodes[i], nodes[i+1]));
 		}
-		this.edges = (Edge[]) tempEdge.toArray();
+		this.edges = tempEdge.toArray(new Edge[0]);
+		
+		System.out.println("TEST GRID");
 	}
 	
 	/*
 	* Constructor for reading from a file
-	* PRECONDITION: File must exist
+	* PRECONDITION: File must be well-formed
 	*/
 	public Graph(String filename, Colony[] homes, double sugarProbability, int avgSugar){
 		try{
 			File file = new File(filename);
-			if(!(file.exists())){
-				System.out.println("The file does not exist");
-				System.exit(0);
-			}
 			Scanner scanner = new Scanner(file);
-			
-			//Checks that there are no errors with the file
-			if(!(fileCheck(filename, homes))){
-				System.out.println("The file is not well-formed");
-				System.exit(0);
-			}
 			
 			//Initializing nodes
 			this.nodes = new Node[scanner.nextInt()];
@@ -92,7 +86,7 @@ public class Graph{
 			
 			this.edges = (Edge[]) tempEdge.toArray();
 			}
-		catch{
+		catch(FileNotFoundException e){
 			System.out.println("The file does not exist");
 			System.exit(0);
 		}
@@ -117,7 +111,15 @@ public class Graph{
 			else if(edges[i].target() == node)
 				tempNode.add(edges[i].source());
 		}
-		return (Node[]) tempNode.toArray();
+		
+		System.out.println("TEST ADJACENTTO");
+		Node[] nodes = tempNode.toArray(new Node[0]);
+		
+		for(int i = 0; i < nodes.length; i++){
+			System.out.println(nodes[i]);
+		}
+				
+		return nodes;
 	}
 	
 	public void tick(){
@@ -135,6 +137,8 @@ public class Graph{
 			//Increases the amount of sugar in the chosen Node
 			nodes[chosenNode].setSugar(nodes[chosenNode].sugar() + RandomUtils.randomPoisson(avgSugar));
 		}
+		
+		System.out.println("TEST TICK");
 	}
 	
 	//Auxillary methods
@@ -150,21 +154,10 @@ public class Graph{
 				}
 			i++;
 		}
+		
+		System.out.println("TEST EDGEFINDER");
+		System.out.println(edge != null);
+				
 		return edge;
-	}
-	
-	private boolean fileCheck(String filename, Colony[] homes){
-		try{
-		Scanner scanner = new Scanner(filename);
-		boolean wellFormed = true;
-		
-		
-		if(!(scanner.hasNextInt())){
-			System.out.println("The file is not well-formed");
-			System.exit(0);
-		}
-		
-		return wellFormed;
-		}
-	}
+	}	
 }
