@@ -2,7 +2,6 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.NumberFormatException;
 
 public class Graph{
 	//Instance variables
