@@ -50,7 +50,7 @@ public class Graph{
 		//The last node does not connect to anything as source.
 		for(int i = 0; i < nodes.length - 1; i++){
 			//Below
-			if(!(i+width > nodes.length-1))
+			if(i+width <= nodes.length-1)
 				tempEdge.add(new Edge(nodes[i], nodes[i+width]));
 				
 			//To the rigth
