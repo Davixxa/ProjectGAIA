@@ -54,7 +54,7 @@ public class Graph{
 				tempEdge.add(new Edge(nodes[i], nodes[i+width]));
 				
 			//To the rigth
-			if(i%width != width-1)
+			if(i%width < width-1)
 				tempEdge.add(new Edge(nodes[i], nodes[i+1]));
 		}
 		
