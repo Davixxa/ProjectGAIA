@@ -57,7 +57,7 @@ public class Graph{
 			if(i%width != width-1)
 				tempEdge.add(new Edge(nodes[i], nodes[i+1]));
 		}
-		this.edges = new Edge[tempEdge.size()];
+		
 		this.edges = tempEdge.toArray(new Edge[0]);
 	}
 	
@@ -95,7 +95,6 @@ public class Graph{
 			while(scanner.hasNextInt())
 				tempEdge.add(new Edge(nodes[scanner.nextInt()-1],nodes[scanner.nextInt()-1]));
 			
-			this.edges = new Edge[tempEdge.size()];
 			this.edges = tempEdge.toArray(new Edge[0]);
 		}
 		catch(FileNotFoundException e){
