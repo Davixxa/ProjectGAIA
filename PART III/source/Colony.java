@@ -22,7 +22,7 @@ public class Colony extends Node{
 	
 	//Checks if the Colony has any sugar
 	public boolean hasStock(){
-		return this.sugar != 0;
+		return this.sugar > 0;
 	}
 	
 	//No standard methods implemented.
