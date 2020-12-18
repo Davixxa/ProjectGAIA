@@ -66,8 +66,8 @@ public class Graph{
 	* PRECONDITION: File must be well-formed
 	*/
 	public Graph(String filename, Colony[] homes, double sugarProbability, int avgSugar){
+		File file = new File(filename);
 		try{
-			File file = new File(filename);
 			Scanner scanner = new Scanner(file);
 			
 			this.nodes = new Node[scanner.nextInt()];
