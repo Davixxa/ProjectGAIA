@@ -15,7 +15,10 @@ public class Colony extends Node{
 		this.sugar = this.sugar + sugar;
 	}
 	
-	//Consumes 1 unit of sugar
+	/*
+	 * Consumes 1 unit of sugar
+	 * PRECONDITION: sugar > 0
+	 */
 	public void consume(){
 		this.sugar = this.sugar - 1;
 	}
