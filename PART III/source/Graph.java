@@ -105,12 +105,19 @@ public class Graph{
 	
 	//Contract methods
 	
-	//Returns the pheromone level between source and target.
+	/*
+	 * Returns the pheromone level between source and target.
+	 * PRECONDITION: Edge between source and target must exist
+	 */
 	public int pheromoneLevel(Node source, Node target){
 		return edgeFinder(source, target).pheromones();
 	}
 	
-	//Raises the pheromone level between source and target.
+	/* 
+	 * Raises the pheromone level between source and target.
+	 * PRECONDITION: Edge between source and target must exist
+	 */
+	
 	public void raisePheromones(Node source, Node target, int amount){
 		edgeFinder(source, target).raisePheromones(amount);
 	}
